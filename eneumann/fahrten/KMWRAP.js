@@ -8,13 +8,8 @@
   // Convert destination string to direction list
       BYROW(
            LAMBDA(destinations, 
-                  // check for unknown destinations, return direction_range if no errors
-                  LAMBDA(errors,direction_range,IF(ISBLANK(errors),direction_range,JOIN(CHAR(10),errors)))
-                  (TOCOL(BYROW(destinations,LAMBDA(destination,IF(CONTAINS(destination_db,destination),, // query DB
-                                                                  CONCATENATE(CHAR(34),destination,CHAR(34)," fehlt")))),3), // Assemble error message if destination unknown
-                         // second argument of lambda, direction range:
                          {ARRAY_CONSTRAIN(destinations,ROWS(destinations)-1,1), // "from" list, cut off last row
-                          REVERSEROWS(ARRAY_CONSTRAIN(REVERSEROWS(destinations),ROWS(destinations)-1,1))})) // "to" list, cut off first row
+                          REVERSEROWS(ARRAY_CONSTRAIN(REVERSEROWS(destinations),ROWS(destinations)-1,1))}) // "to" list, cut off first row
 
             // Turn "from" and "to" into direction string
            (TRANSPOSE(ARRAYFORMULA(TRIM(SPLIT(B2,"-",TRUE,TRUE))))), // Split string of destinations into list of destinations (first operation)

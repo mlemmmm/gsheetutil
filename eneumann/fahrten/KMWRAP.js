@@ -2,6 +2,8 @@
 
  // catch destination errors
  LAMBDA(destinations, 
+        LAMBDA(errors,IF(ISBLANK(errors),, 
+        
  
  LAMBDA(kms,
         IF(AND(ARRAYFORMULA(ISNUMBER(kms))), // catch direction errors
@@ -17,10 +19,14 @@
   // Work through directions, output km for each direction, catch direction errors
   LAMBDA(direction,IF(CONTAINS(direction_db,direction), // query DB
                       FORCELOOKUP(direction,CHOOSECOLS(direction_db,1),CHOOSECOLS(direction_db,2)), // Look up km values for each direction
-                      CONCATENATE(CHAR(9888),CHAR(34),direction,CHAR(34)," fehlt")))))) // Assemble error message if direction unknown
+                      CONCATENATE(CHAR(9888),CHAR(34),direction,CHAR(34)," fehlt"))))))) // Assemble error message if direction unknown
+
+        // destination error handling:
+        (TOCOL(BYROW(destinations,LAMBDA(destination,IF(CONTAINS(destination_db,destination),, //query DB
+                                                       CONCATENATE(CHAR(10),destination,CHAR(10)," fehlt")))),3))) // Assemble error message if destination unknown
 
     // Split string of destinations into list of destinations (first operation)
-    (TRANSPOSE(ARRAYFORMULA(TRIM(SPLIT(B2,"-",TRUE,TRUE))))) 
+    (TRANSPOSE(ARRAYFORMULA(TRIM(SPLIT(B2,"-",TRUE,TRUE)))))) 
 
 
 

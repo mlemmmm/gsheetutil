@@ -1,4 +1,4 @@
-=IF(LEN(B2)<4,, // catch unpopulated row in a robust manner, allowing for " - ", "- ", "-", empty, or any other short identifier of an unpopulated row
+=IF(LEN(B2)<4,"-", // catch unpopulated row in a robust manner, allowing for " - ", "- ", "-", empty, or any other short identifier of an unpopulated row
 
  // catch destination errors
  LAMBDA(destinations, 

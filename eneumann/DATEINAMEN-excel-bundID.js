@@ -3,10 +3,10 @@ WENN(ISTLEER(A2);"";VERKETTEN(TEXT(A2;"JJJJ-MM-TT");"_"));
 WENN(ISTLEER(B2);"";VERKETTEN(B2;"_"));
 WENN(ISTLEER(C2);"";VERKETTEN("SGB-";GROSS(C2);"_"));
 WENN(ISTLEER(D2);"";VERKETTEN(D2;"_"));
-WENN(ISTLEER(E2);"";VERKETTEN(E2;"_"));
-WENN(ISTLEER(F2);"";VERKETTEN("Deb";F2;"_"));
+WENN(ISTLEER(E2);"";VERKETTEN(REGEXERSETZEN(E2;"\s|/|\.|,";"-");"_"));
+WENN(ISTLEER(F2);"";VERKETTEN("Deb";REGEXERSETZEN(F2;"\s|/|\.|,";"-");"_"));
 WENN(ISTLEER(G2);"";VERKETTEN("xx";REGEXERSETZEN(TEXT(G2;"0,00");",";"-");"EUR_"));
 WENN(ISTLEER(H2);"";GROSS2(H2)));
-"\s+_*\s*|(,|\.)\s*"; "_");
+"\s+_*\s*|(,|\.)\s*|/"; "_");
 "_+-*_*";"_");
 "(_|-)$|€";"")

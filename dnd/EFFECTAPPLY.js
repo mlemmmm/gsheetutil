@@ -1,11 +1,14 @@
 /*
-
-
+desc: Returns {multiplier, effect;...} array
+var: effect, amount
+effect desc: The effect string of a module
+effect ex: "+50% Energy usage\n-10% Input usage"
+amount desc: how many of a module there are
 */
 
-=LET(effects, ARRAYFORMULA(SPLIT(SPREAD(P8)," ",FALSE)),
- LET(multiplier, 1+DROPRIGHT(DROPLEFT(CHOOSECOLS(effects,1),1),1)/100,
-     description, CHOOSECOLS(effects,2),
+=LET(effectarray, ARRAYFORMULA(SPLIT(SPREAD(effect)," ",FALSE)),
+ LET(multiplier, MAP(CHOOSECOLS(effectarray,1),LAMBDA(percent,1+DROPRIGHT(DROPLEFT(percent,1),1)/100)),
+     description, CHOOSECOLS(effectarray,2),
     
     )
 )
